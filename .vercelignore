@@ -1,0 +1,7 @@
+# Raw content export from the old site (root only) — optimised copies live in /public
+/images
+/pages
+/images.md
+/structured-data.md
+/.next
+/node_modules
