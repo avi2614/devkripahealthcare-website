@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Logo } from "@/components/ui/logo";
 import { FacebookIcon, InstagramIcon, WhatsAppIcon } from "@/components/ui/icons";
 import { contact, hours, nav, treatmentHref, treatments, whatsappLink } from "@/data/site";
+import { Magnetic, WordsReveal } from "@/components/ui/motion-kit";
 
 const featured = ["root-canal", "implants", "orthodontics", "acne", "pigmentation", "hair"];
 
@@ -18,15 +19,19 @@ export function Footer() {
   return (
     <footer className="on-dark bg-ink text-ink-foreground">
       {/* Closing CTA */}
-      <div className="container-x border-b border-white/10 py-20 md:py-28">
+      <div className="container-x dot-field border-b border-white/10 py-20 md:py-28">
         <div className="flex flex-col items-start justify-between gap-10 md:flex-row md:items-end">
           <h2 className="display max-w-[16ch] text-5xl leading-[1.05] md:text-7xl">
-            Let&rsquo;s talk about <em className="text-[#d8b892]">what you need.</em>
+            <WordsReveal>
+              Let&rsquo;s talk about <em className="text-highlight">what you need.</em>
+            </WordsReveal>
           </h2>
           <div className="flex flex-wrap gap-3">
-            <Link href="/book" className="btn btn-light">
-              Book a consultation
-            </Link>
+            <Magnetic>
+              <Link href="/book" className="btn btn-light">
+                Book a consultation
+              </Link>
+            </Magnetic>
             <a href={contact.phoneHref} className="btn btn-ghost">
               Call {contact.phoneDisplay}
             </a>

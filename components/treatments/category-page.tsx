@@ -5,6 +5,8 @@ import { ArrowRight } from "lucide-react";
 import { SiteShell } from "@/components/layout/site-shell";
 import { Reveal } from "@/components/ui/reveal";
 import { site, treatmentGroups, treatmentHref, treatments, type TreatmentGroup } from "@/data/site";
+import { Tilt } from "@/components/ui/motion-kit";
+import { ImageCardCarousel } from "@/components/ui/image-card-carousel";
 
 export function categoryMetadata(group: TreatmentGroup): Metadata {
   const g = treatmentGroups[group];
@@ -65,26 +67,44 @@ export function CategoryPage({ group }: { group: TreatmentGroup }) {
             </Reveal>
           </div>
 
-          <ul className="mt-16 grid gap-x-8 gap-y-14 border-t border-border pt-14 sm:grid-cols-2 lg:grid-cols-3">
+          <Reveal delay={0.1} className="mt-16">
+            <ImageCardCarousel
+              label={`${g.label} treatments`}
+              items={list.map((t) => ({
+                id: t.id,
+                href: treatmentHref(t.id),
+                title: t.name,
+                description: t.short,
+                image: t.image,
+                imageAlt: t.imageAlt,
+                tag: g.label,
+              }))}
+            />
+          </Reveal>
+
+          <h2 className="eyebrow mt-24">All {g.label.toLowerCase()} treatments</h2>
+          <ul className="mt-6 grid gap-x-8 gap-y-14 border-t border-border pt-14 sm:grid-cols-2 lg:grid-cols-3">
             {list.map((t, i) => (
-              <li key={t.id}>
+              <li key={t.id} className="spotlight">
                 <Link href={treatmentHref(t.id)} className="group flex h-full flex-col">
-                  <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+                  <Tilt className="aspect-[4/3]" max={5}>
+                  <div className="relative h-full overflow-hidden rounded-xl bg-muted">
                     <Image
                       src={t.image}
                       alt={t.imageAlt}
                       fill
                       priority={i < 3}
                       sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                      className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                     />
                   </div>
+                  </Tilt>
                   <span className="mt-5 text-xs font-semibold tabular-nums tracking-widest text-muted-foreground">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h2 className="display mt-2 text-2xl leading-tight transition-colors group-hover:text-primary md:text-[1.75rem]">
+                  <h3 className="display mt-2 text-2xl leading-tight transition-colors group-hover:text-primary md:text-[1.75rem]">
                     {t.name}
-                  </h2>
+                  </h3>
                   <p className="mt-2 text-[0.97rem] leading-relaxed text-muted-foreground">{t.short}</p>
                   <span className="arrow-nudge mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
                     View treatment <ArrowRight className="h-4 w-4" aria-hidden />

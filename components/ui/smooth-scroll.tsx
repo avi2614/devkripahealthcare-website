@@ -4,6 +4,14 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
+let active: Lenis | null = null;
+
+/** Smoothly return to the top, through Lenis when it is running. */
+export function scrollToTop() {
+  if (active) active.scrollTo(0, { duration: 1.4 });
+  else window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
 /**
  * Eased wheel scrolling for desktop pointers. Touch devices keep native scrolling,
  * and it is switched off entirely for people who prefer reduced motion.
@@ -27,6 +35,7 @@ export function SmoothScroll() {
       prevent: (node) => !!node.closest?.('[role="dialog"]'),
     });
     lenisRef.current = lenis;
+    active = lenis;
 
     // Radix dialogs lock page scroll by marking <body>; pause Lenis while they're open.
     const observer = new MutationObserver(() => {
@@ -39,6 +48,7 @@ export function SmoothScroll() {
       observer.disconnect();
       lenis.destroy();
       lenisRef.current = null;
+      active = null;
     };
   }, []);
 

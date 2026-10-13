@@ -10,7 +10,7 @@ const facts = [
 
 export function Intro() {
   return (
-    <section id="intro" className="py-24 md:py-36">
+    <section id="intro" className="dot-field dot-field-light py-24 md:py-36">
       <div className="container-x">
         <div className="grid gap-10 md:grid-cols-12">
           <Reveal className="md:col-span-3">
@@ -31,9 +31,10 @@ export function Intro() {
             <Reveal
               key={f.k}
               delay={i * 0.08}
-              className={`border-b border-border py-7 sm:pr-8 lg:border-b-0 ${i > 0 ? "lg:border-l lg:pl-8" : ""} ${i % 2 === 1 ? "sm:border-l sm:pl-8 lg:pl-8" : ""}`}
+              className={`group relative border-b border-border py-7 transition-transform duration-500 hover:-translate-y-1 sm:pr-8 lg:border-b-0 ${i > 0 ? "lg:border-l lg:pl-8" : ""} ${i % 2 === 1 ? "sm:border-l sm:pl-8 lg:pl-8" : ""}`}
             >
-              <dt className="display text-3xl">{f.k}</dt>
+              <span aria-hidden className="absolute inset-x-0 -top-px h-[2px] origin-left scale-x-0 bg-[linear-gradient(90deg,var(--primary),var(--accent))] transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
+              <dt className="display text-3xl transition-colors duration-500 group-hover:text-primary">{f.k}</dt>
               <dd className="mt-2 text-[0.95rem] leading-relaxed text-muted-foreground">{f.v}</dd>
             </Reveal>
           ))}

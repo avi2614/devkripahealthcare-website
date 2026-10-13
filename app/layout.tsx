@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Newsreader } from "next/font/google";
+import { Manrope, Outfit } from "next/font/google";
 import "react-day-picker/style.css";
 import "lenis/dist/lenis.css";
 import "./globals.css";
@@ -9,12 +9,13 @@ import { Footer } from "@/components/footer/footer";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
 import { Loader } from "@/components/ui/loader";
 import { SmoothScroll } from "@/components/ui/smooth-scroll";
+import { ScrollProgress, SpotlightTracker } from "@/components/ui/effects";
+import { BackToTop } from "@/components/ui/motion-kit";
 
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope", display: "swap" });
-const newsreader = Newsreader({
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-newsreader",
-  style: ["normal", "italic"],
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f5f1ea",
+  themeColor: "#f6f8fc",
   width: "device-width",
   initialScale: 1,
 };
@@ -111,7 +112,7 @@ const jsonLd = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-IN" data-scroll-behavior="smooth" className={`${manrope.variable} ${newsreader.variable}`}>
+    <html lang="en-IN" data-scroll-behavior="smooth" className={`${manrope.variable} ${outfit.variable}`}>
       <body>
         <a
           href="#main"
@@ -120,11 +121,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <SmoothScroll />
+        <ScrollProgress />
+        <SpotlightTracker />
         <Loader />
         <SiteHeader />
         {children}
         <Footer />
         <WhatsAppButton />
+        <BackToTop />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>
     </html>

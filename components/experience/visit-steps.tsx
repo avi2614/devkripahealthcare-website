@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { ImageReveal, Reveal } from "@/components/ui/reveal";
+import { WordsReveal } from "@/components/ui/motion-kit";
+import { ScrollLine } from "@/components/ui/motion-kit";
 
 const steps = [
   {
@@ -27,14 +29,16 @@ const steps = [
 export function VisitSteps({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
   const Title = titleAs;
   return (
-    <section id="visit" aria-labelledby="visit-title" className="bg-ink py-24 text-ink-foreground md:py-36">
+    <section id="visit" aria-labelledby="visit-title" className="dot-field bg-ink py-24 text-ink-foreground md:py-36">
       <div className="container-x grid gap-16 lg:grid-cols-12">
         <div className="lg:col-span-5">
           <div className="lg:sticky lg:top-28">
             <Reveal>
               <p className="eyebrow !text-ink-foreground/60">Your visit</p>
               <Title id="visit-title" className="display mt-5 text-5xl md:text-6xl">
-                What a first appointment <em className="text-[#d8b892]">looks like</em>
+                <WordsReveal>
+                  What a first appointment <em className="text-highlight">looks like</em>
+                </WordsReveal>
               </Title>
             </Reveal>
             <div className="mt-12 grid grid-cols-5 gap-3">
@@ -60,7 +64,9 @@ export function VisitSteps({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
           </div>
         </div>
 
-        <ol className="lg:col-span-6 lg:col-start-7">
+        <div className="relative lg:col-span-6 lg:col-start-7">
+        <ScrollLine className="-left-10 hidden lg:block" />
+        <ol>
           {steps.map((s, i) => (
             <Reveal
               as="li"
@@ -68,7 +74,7 @@ export function VisitSteps({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
               delay={i * 0.04}
               className="grid grid-cols-[4.5rem_1fr] gap-4 border-t border-white/15 py-10 first:border-t-0 first:pt-0 md:grid-cols-[7rem_1fr] md:py-14"
             >
-                <span className="display text-5xl text-[#d8b892] md:text-7xl" aria-hidden>
+                <span className="display text-5xl text-highlight md:text-7xl" aria-hidden>
                   {s.n}
                 </span>
                 <div>
@@ -78,6 +84,7 @@ export function VisitSteps({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
             </Reveal>
           ))}
         </ol>
+        </div>
       </div>
     </section>
   );

@@ -2,31 +2,45 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ImageReveal, Reveal } from "@/components/ui/reveal";
+import { Float, Magnetic, Parallax, WordsReveal } from "@/components/ui/motion-kit";
+import { BrandMark } from "@/components/ui/brand-mark";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/icons";
 import { contact, doctor } from "@/data/site";
 
 export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
   const Title = titleAs;
   return (
-    <section id="doctor" aria-labelledby="doctor-title" className="bg-secondary/55 py-24 md:py-36">
+    <section id="doctor" aria-labelledby="doctor-title" className="overflow-hidden bg-secondary/55 py-24 md:py-36">
       <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-10">
         {/* Images */}
         <div className="relative lg:col-span-6">
-          <ImageReveal className="relative aspect-[4/5] overflow-hidden rounded-[2px] bg-muted">
-            <Image
-              src="/images/doctor-desk.webp"
-              alt="Dr. Jahanvi Tyagi seated at her desk in the consultation room"
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover object-[50%_60%]"
-              quality={80}
-            />
+          <ImageReveal className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-muted">
+            <Parallax offset={30} className="absolute -inset-y-10 inset-x-0">
+              <Image
+                src="/images/doctor-desk.webp"
+                alt="Dr. Jahanvi Tyagi seated at her desk in the consultation room"
+                fill
+                sizes="(min-width: 1024px) 45vw, 100vw"
+                className="object-cover object-[50%_60%]"
+                quality={80}
+              />
+            </Parallax>
           </ImageReveal>
+          {/* Floating experience badge */}
+          <Float className="absolute left-4 top-6 sm:left-6 sm:top-8">
+            <Reveal delay={0.5} className="flex items-center gap-3 rounded-2xl border border-white/60 bg-white/80 px-4 py-3 shadow-[0_18px_40px_-20px_rgba(11,30,70,0.5)] backdrop-blur-md">
+              <BrandMark className="h-8 w-8" />
+              <span className="leading-tight">
+                <span className="display block text-2xl">{new Date().getFullYear() - doctor.practisingSince}+ years</span>
+                <span className="text-xs text-muted-foreground">practising since {doctor.practisingSince}</span>
+              </span>
+            </Reveal>
+          </Float>
           <Reveal
             delay={0.3}
-            className="absolute -bottom-10 right-4 w-[38%] max-w-[220px] border-[6px] border-secondary bg-muted shadow-[0_20px_40px_-20px_rgba(20,25,22,0.35)] sm:right-8 lg:-right-8 lg:bottom-auto lg:top-[62%]"
+            className="absolute -bottom-10 right-4 w-[38%] max-w-[220px] sm:right-8 lg:-right-8 lg:bottom-auto lg:top-[62%]"
           >
-            <div className="relative aspect-[4/5]">
+            <Parallax offset={-28} className="relative aspect-[4/5] overflow-hidden rounded-xl border-[6px] border-white bg-muted shadow-[0_20px_40px_-20px_rgba(11,30,70,0.45)]">
               <Image
                 src="/images/doctor-portrait.webp"
                 alt="Portrait of Dr. Jahanvi Tyagi"
@@ -34,7 +48,7 @@ export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
                 sizes="220px"
                 className="object-cover object-top"
               />
-            </div>
+            </Parallax>
           </Reveal>
         </div>
 
@@ -43,7 +57,7 @@ export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
           <Reveal>
             <p className="eyebrow">Meet the doctor</p>
             <Title id="doctor-title" className="display mt-5 text-5xl md:text-6xl">
-              {doctor.name}
+              <WordsReveal>{doctor.name}</WordsReveal>
             </Title>
             <p className="mt-3 text-lg text-muted-foreground">{doctor.title}</p>
           </Reveal>
@@ -87,9 +101,11 @@ export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
           </Reveal>
 
           <Reveal delay={0.16} className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <Link href="/book" className="btn btn-primary arrow-nudge">
-              Book with Dr. Jahanvi <ArrowRight className="h-4 w-4" aria-hidden />
-            </Link>
+            <Magnetic>
+              <Link href="/book" className="btn btn-primary arrow-nudge">
+                Book with Dr. Jahanvi <ArrowRight className="h-4 w-4" aria-hidden />
+              </Link>
+            </Magnetic>
             <div className="flex items-center gap-1">
               <a
                 href={contact.social.instagram}

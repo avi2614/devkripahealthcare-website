@@ -1,10 +1,11 @@
 import { SiteShell } from "@/components/layout/site-shell";
 import { Hero } from "@/components/hero/hero";
+import { TreatmentMarquee } from "@/components/hero/treatment-marquee";
 import { Intro } from "@/components/intro/intro";
 import { Doctor } from "@/components/doctor/doctor";
 import { Treatments } from "@/components/treatments/treatments";
 import { VisitSteps } from "@/components/experience/visit-steps";
-import { Gallery } from "@/components/gallery/gallery";
+import { PhotoStrip } from "@/components/gallery/photo-strip";
 import { Reviews } from "@/components/reviews/reviews";
 import { Community } from "@/components/community/community";
 import { Booking } from "@/components/appointment/booking";
@@ -16,11 +17,12 @@ export default function Home() {
   return (
     <SiteShell>
       <Hero />
+      <TreatmentMarquee />
       <Intro />
       <Doctor />
       <Treatments />
       <VisitSteps />
-      <Gallery limit={6} />
+      <PhotoStrip />
       <Community />
       <Reviews />
       <Booking />

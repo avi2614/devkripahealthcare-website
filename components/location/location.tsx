@@ -6,6 +6,7 @@ import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { Reveal, ImageReveal } from "@/components/ui/reveal";
 import { WhatsAppIcon } from "@/components/ui/icons";
 import { contact, hours, whatsappLink } from "@/data/site";
+import { WordsReveal } from "@/components/ui/motion-kit";
 
 const noopSubscribe = () => () => {};
 
@@ -31,7 +32,9 @@ export function Location({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
           <div className="md:col-span-7">
             <p className="eyebrow">Visit &amp; contact</p>
             <Title id="contact-title" className="display mt-5 text-5xl md:text-6xl">
-              Find us in Jhotwara
+              <WordsReveal>
+                Find us in Jhotwara
+              </WordsReveal>
             </Title>
           </div>
         </Reveal>

@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { format } from "date-fns";
 import { Reveal } from "@/components/ui/reveal";
 import { reviews } from "@/data/site";
 import { VideoReviews } from "@/components/reviews/video-reviews";
+import { WordsReveal } from "@/components/ui/motion-kit";
 
 export function Reviews({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
   const Title = titleAs;
@@ -14,6 +15,14 @@ export function Reviews({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
   const [i, setI] = useState(0);
   const r = reviews[i];
   const go = (s: number) => setI((v) => (v + s + reviews.length) % reviews.length);
+  // Auto-advance every few seconds; pauses while the visitor hovers or focuses the quote.
+  const [paused, setPaused] = useState(false);
+  const autoplay = !reduce && !paused;
+  useEffect(() => {
+    if (!autoplay) return;
+    const t = window.setTimeout(() => setI((v) => (v + 1) % reviews.length), 9000);
+    return () => window.clearTimeout(t);
+  }, [autoplay, i]);
 
   return (
     <section aria-labelledby="reviews-title" className="border-t border-border bg-card py-24 md:py-32">
@@ -21,7 +30,9 @@ export function Reviews({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
         <Reveal className="lg:col-span-4">
           <p className="eyebrow">Patients</p>
           <Title id="reviews-title" className="display mt-5 text-4xl md:text-5xl">
-            In their own words
+            <WordsReveal>
+              In their own words
+            </WordsReveal>
           </Title>
           <p className="mt-6 max-w-sm text-muted-foreground">
             Reviews left by patients on the clinic&rsquo;s booking page, shown as written.
@@ -50,11 +61,24 @@ export function Reviews({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
           </ul>
         </Reveal>
 
-        <div className="lg:col-span-7 lg:col-start-6">
-          <figure className="relative min-h-[22rem] md:min-h-[20rem]" aria-live="polite">
-            <span className="display absolute -left-1 -top-10 text-[7rem] leading-none text-accent/30 select-none md:-top-14 md:text-[9rem]" aria-hidden>
+        <div
+          className="lg:col-span-7 lg:col-start-6"
+          onPointerEnter={() => setPaused(true)}
+          onPointerLeave={() => setPaused(false)}
+          onFocus={() => setPaused(true)}
+          onBlur={() => setPaused(false)}
+        >
+          <figure className="relative min-h-[22rem] md:min-h-[20rem]" aria-live={autoplay ? "off" : "polite"}>
+            <motion.span
+              key={`q-${i}`}
+              className="display absolute -left-1 -top-10 text-[7rem] leading-none text-accent/30 select-none md:-top-14 md:text-[9rem]"
+              aria-hidden
+              initial={reduce ? false : { scale: 0.4, opacity: 0, rotate: -12 }}
+              animate={{ scale: 1, opacity: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 18 }}
+            >
               &ldquo;
-            </span>
+            </motion.span>
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={r.author}
@@ -65,7 +89,9 @@ export function Reviews({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
                 className="relative"
               >
                 <blockquote className="display text-[1.7rem] leading-[1.3] md:text-[2.35rem] md:leading-[1.25]">
-                  {r.text}
+                  <WordsReveal mode="mount" stagger={0.018}>
+                    {r.text}
+                  </WordsReveal>
                 </blockquote>
                 <figcaption className="mt-8 flex flex-wrap items-baseline gap-x-3 text-[0.95rem]">
                   <span className="font-semibold">{r.author}</span>
@@ -96,6 +122,16 @@ export function Reviews({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
             </button>
             <span className="ml-3 text-sm tabular-nums text-muted-foreground">
               {String(i + 1).padStart(2, "0")} / {String(reviews.length).padStart(2, "0")}
+            </span>
+            {/* Time until the next review */}
+            <span className="ml-auto h-[2px] w-24 overflow-hidden rounded-full bg-border md:w-40" aria-hidden>
+              <motion.span
+                key={`p-${i}-${autoplay}`}
+                className="block h-full origin-left bg-[linear-gradient(90deg,var(--primary),var(--accent))]"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: autoplay ? 1 : 0 }}
+                transition={{ duration: autoplay ? 9 : 0.3, ease: "linear" }}
+              />
             </span>
           </div>
         </div>

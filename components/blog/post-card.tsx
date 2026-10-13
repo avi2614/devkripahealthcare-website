@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { formatPostDate, readingMinutes, type BlogPost } from "@/data/blog";
+import { Tilt } from "@/components/ui/motion-kit";
 
 export function PostCard({
   post,
@@ -15,16 +16,18 @@ export function PostCard({
   return (
     <article className="group flex flex-col">
       <Link href={`/blog/${post.slug}`} className="flex flex-1 flex-col" aria-label={post.title}>
-        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+        <Tilt className="aspect-[4/3]" max={5}>
+        <div className="relative h-full overflow-hidden rounded-xl bg-muted">
           <Image
             src={post.image}
             alt={post.imageAlt}
             fill
             priority={priority}
             sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           />
         </div>
+        </Tilt>
         <div className="mt-5 flex items-center gap-3 text-xs text-muted-foreground">
           <span className="eyebrow !text-accent">{post.category}</span>
           <span aria-hidden>·</span>

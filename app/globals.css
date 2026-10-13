@@ -4,21 +4,24 @@
 /*  Tokens                                                              */
 /* ------------------------------------------------------------------ */
 :root {
-  --background: #f5f1ea;        /* warm ivory */
-  --foreground: #1d2220;        /* deep charcoal, green-leaning */
-  --card: #fbf9f5;
-  --muted: #ebe5db;
-  --muted-foreground: #5b605c;
-  --primary: #2c4a3e;           /* deep sage */
-  --primary-foreground: #f5f1ea;
-  --secondary: #e6ddcf;         /* warm sand */
-  --secondary-foreground: #1d2220;
-  --accent: #7d5334;            /* clay — used sparingly */
-  --border: #d9d0c2;
-  --ink: #161b19;               /* dark sections */
-  --ink-foreground: #ece6dc;
-  --ring: #2c4a3e;
-  --danger: #a3372b;
+  /* Pulled from the logo: royal-blue cross, signal-red cross, near-black wordmark. */
+  --background: #f6f8fc;        /* cool clinical white */
+  --foreground: #0b1324;        /* wordmark black, navy-leaning */
+  --card: #ffffff;
+  --muted: #e9eef8;
+  --muted-foreground: #4b586e;
+  --primary: #0b5fef;           /* logo blue */
+  --primary-hover: #084bc6;
+  --primary-foreground: #ffffff;
+  --secondary: #e2ebfb;         /* pale blue */
+  --secondary-foreground: #0b1324;
+  --accent: #d9131f;            /* logo red — used sparingly */
+  --border: #d5deee;
+  --ink: #06132e;               /* deep navy dark sections */
+  --ink-foreground: #e6edfb;
+  --highlight: #8cb8ff;         /* emphasis on dark */
+  --ring: #0b5fef;
+  --danger: #c0262d;
 }
 
 @theme inline {
@@ -35,11 +38,12 @@
   --color-border: var(--border);
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
+  --color-highlight: var(--highlight);
   --color-ring: var(--ring);
   --color-danger: var(--danger);
 
   --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  --font-serif: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --radius-sm: 4px;
@@ -75,7 +79,7 @@
   }
   .on-dark :focus-visible,
   .on-dark:focus-visible {
-    outline-color: #e9dcc6;
+    outline-color: var(--highlight);
   }
   h1, h2, h3 {
     text-wrap: balance;
@@ -108,11 +112,38 @@
     color: var(--muted-foreground);
   }
 
+  /* A brand plus before section labels — red over blue, like the logo mark. */
+  p.eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 0.7rem;
+    height: 0.7rem;
+    margin-right: 0.6rem;
+    vertical-align: -0.08rem;
+    background:
+      linear-gradient(var(--accent), var(--accent)) center / 100% 34% no-repeat,
+      linear-gradient(var(--primary), var(--primary)) center / 34% 100% no-repeat;
+  }
+
   .display {
     font-family: var(--font-serif);
-    font-weight: 400;
-    letter-spacing: -0.015em;
+    font-weight: 500;
+    letter-spacing: -0.03em;
     line-height: 1.05;
+  }
+  /* The display face has no italic; emphasis is carried by colour instead. */
+  .display em { font-style: normal; color: var(--primary); }
+  .bg-ink .display em,
+  .on-dark .display em { color: var(--highlight); }
+
+  /* Brand gradient text for one or two words on dark backgrounds. */
+  .text-gradient {
+    background: linear-gradient(100deg, var(--highlight) 0%, #ffffff 50%, #ff9aa0 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 6s ease-in-out infinite alternate;
   }
 
   .btn {
@@ -129,15 +160,35 @@
     transition: background-color 0.3s var(--ease-out-soft), color 0.3s var(--ease-out-soft),
       border-color 0.3s var(--ease-out-soft), transform 0.3s var(--ease-out-soft);
     white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
   }
   .btn:active { transform: translateY(1px); }
+  /* Shine sweep on hover (Magic UI "shiny button" pattern). */
+  .btn-primary::after,
+  .btn-light::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%);
+    transform: translateX(-120%);
+    transition: transform 0.8s var(--ease-out-soft);
+  }
+  .btn-light::after {
+    background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--primary) 16%, transparent) 50%, transparent 70%);
+  }
+  .btn-primary:hover::after,
+  .btn-light:hover::after { transform: translateX(120%); }
   .btn-primary {
     background: var(--primary);
     color: var(--primary-foreground);
+    box-shadow: 0 10px 24px -12px color-mix(in srgb, var(--primary) 70%, transparent);
   }
-  .btn-primary:hover { background: #223a31; }
+  .btn-primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
   .btn-light {
-    background: #f5f1ea;
+    background: #ffffff;
     color: var(--foreground);
   }
   .btn-light:hover { background: #fff; }
@@ -173,8 +224,8 @@
     color: var(--foreground);
     transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .field::placeholder { color: #8b8f8a; }
-  .field:hover { border-color: #bfb5a5; }
+  .field::placeholder { color: #8591a6; }
+  .field:hover { border-color: #b3c2dc; }
   .field:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent); }
   .field[aria-invalid="true"] { border-color: var(--danger); }
 
@@ -189,6 +240,71 @@
     mix-blend-mode: overlay;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/*  Effects                                                             */
+/* ------------------------------------------------------------------ */
+@keyframes gradient-pan { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+
+/* Dot field behind a section (Magic UI "dot pattern"), faded at the edges. */
+.dot-field { position: relative; isolation: isolate; }
+.dot-field::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(color-mix(in srgb, var(--highlight) 32%, transparent) 1px, transparent 1.3px);
+  background-size: 22px 22px;
+  mask-image: radial-gradient(ellipse 70% 60% at 25% 30%, #000 15%, transparent 75%);
+}
+.dot-field-light::before {
+  background-image: radial-gradient(color-mix(in srgb, var(--primary) 24%, transparent) 1px, transparent 1.3px);
+  mask-image: radial-gradient(ellipse 55% 70% at 90% 15%, #000 10%, transparent 70%);
+}
+
+/* Light travelling around a card's border (Magic UI "border beam"). */
+@property --beam-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.border-beam { position: relative; }
+.border-beam::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  z-index: 1;
+  padding: 1.5px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(from var(--beam-angle), transparent 0 70%, var(--primary) 82%, var(--accent) 92%, transparent 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: beam-spin 7s linear infinite;
+}
+@keyframes beam-spin { to { --beam-angle: 360deg; } }
+
+/* Infinite marquee (Magic UI "marquee"). Pauses on hover. */
+.marquee { display: flex; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track { display: flex; flex-shrink: 0; align-items: center; gap: 3rem; padding-right: 3rem; animation: marquee 40s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-100%); } }
+
+/* Endless photo strip (21st.dev "Image Auto Slider"). Pauses on hover; direction set inline. */
+.auto-slider { display: flex; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+.auto-slider-track { display: flex; flex-shrink: 0; gap: 1rem; padding-right: 1rem; animation: marquee 60s linear infinite; }
+.auto-slider:hover .auto-slider-track { animation-play-state: paused; }
+
+/* Cursor-tracked glow on cards (Aceternity "card spotlight"); --mx/--my are set by useSpotlight. */
+.spotlight { position: relative; }
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--primary) 10%, transparent), transparent 65%);
+}
+.spotlight:hover::after { opacity: 1; }
 
 /* ------------------------------------------------------------------ */
 /*  Day picker skin                                                     */

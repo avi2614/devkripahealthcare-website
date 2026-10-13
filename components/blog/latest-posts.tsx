@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { PostCard } from "@/components/blog/post-card";
 import { Reveal } from "@/components/ui/reveal";
 import { sortedPosts } from "@/data/blog";
+import { WordsReveal } from "@/components/ui/motion-kit";
 
 export function LatestPosts() {
   const posts = sortedPosts().slice(0, 3);
@@ -13,7 +14,9 @@ export function LatestPosts() {
           <div>
             <p className="eyebrow">From the blog</p>
             <h2 id="latest-posts-title" className="display mt-5 text-5xl md:text-6xl">
-              Patient guides
+              <WordsReveal>
+                Patient guides
+              </WordsReveal>
             </h2>
           </div>
           <Link href="/blog" className="arrow-nudge inline-flex items-center gap-2 text-sm font-semibold text-primary">

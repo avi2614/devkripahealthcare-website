@@ -23,6 +23,7 @@ import {
 } from "@/lib/booking";
 import { BOOK_EVENT, type BookEventDetail } from "@/lib/booking-events";
 import { contact, hours, treatments, whatsappLink } from "@/data/site";
+import { WordsReveal } from "@/components/ui/motion-kit";
 
 const steps = ["Treatment", "Date & time", "Your details", "Review"] as const;
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -168,7 +169,9 @@ export function Booking({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
         <Reveal className="lg:col-span-4">
           <p className="eyebrow">Appointments</p>
           <Title id="book-title" className="display mt-5 text-5xl md:text-6xl">
-            Book a consultation
+            <WordsReveal>
+              Book a consultation
+            </WordsReveal>
           </Title>
           <p className="mt-6 max-w-sm text-lg leading-relaxed text-muted-foreground">
             Choose a time that suits you and the clinic will call to confirm. It takes about a minute.
@@ -193,7 +196,7 @@ export function Booking({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
 
         {/* Flow */}
         <Reveal delay={0.08} className="lg:col-span-8">
-          <div className="border border-border bg-card shadow-[0_30px_60px_-40px_rgba(30,35,32,0.25)]">
+          <div className="border-beam border border-border bg-card shadow-[0_30px_60px_-40px_rgba(11,30,70,0.3)]">
             {/* Stepper */}
             {!result && (
               <ol className="grid grid-cols-4 border-b border-border" aria-label="Booking steps">

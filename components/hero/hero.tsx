@@ -7,6 +7,8 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { doctor, hours } from "@/data/site";
 import { useAlwaysPlay } from "@/components/ui/always-playing-video";
+import { NumberTicker } from "@/components/ui/effects";
+import { Magnetic } from "@/components/ui/motion-kit";
 
 const VIDEO = {
   desktop: { src: "/videos/hero-clinic.mp4", poster: "/videos/hero-clinic-poster.webp" },
@@ -81,8 +83,8 @@ export function Hero() {
           />
         )}
         {/* Legibility scrim — kept quiet and directional, not decorative */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(14,18,16,0.82)_0%,rgba(14,18,16,0.35)_45%,rgba(14,18,16,0.15)_70%,rgba(14,18,16,0.45)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(14,18,16,0.55)_0%,rgba(14,18,16,0)_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.82)_0%,rgba(0,0,0,0.35)_45%,rgba(0,0,0,0.15)_70%,rgba(0,0,0,0.45)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.55)_0%,rgba(0,0,0,0)_60%)]" />
       </motion.div>
 
       {/* Content */}
@@ -93,7 +95,6 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease }}
         >
-          <span className="h-px w-8 bg-white/60" aria-hidden />
           Dr. Jahanvi&rsquo;s Dermadent · Jhotwara, Jaipur
         </motion.p>
 
@@ -101,7 +102,7 @@ export function Hero() {
           {lines.map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.08em]">
               <motion.span
-                className={`block ${i === 2 ? "italic text-[#eadcc8]" : ""}`}
+                className={`block ${i === 2 ? "text-gradient" : ""}`}
                 initial={reduce ? false : { y: "105%" }}
                 animate={{ y: 0 }}
                 transition={{ duration: 1.1, delay: 0.45 + i * 0.12, ease }}
@@ -125,20 +126,26 @@ export function Hero() {
               treated under one roof — open every day of the week.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/book" className="btn btn-light arrow-nudge on-dark">
-                Book a consultation <ArrowRight className="h-4 w-4" aria-hidden />
-              </Link>
-              <Link href="/treatments" className="btn btn-ghost on-dark text-white">
-                See treatments
-              </Link>
+              <Magnetic>
+                <Link href="/book" className="btn btn-light arrow-nudge on-dark">
+                  Book a consultation <ArrowRight className="h-4 w-4" aria-hidden />
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link href="/treatments" className="btn btn-ghost on-dark text-white">
+                  See treatments
+                </Link>
+              </Magnetic>
             </div>
           </div>
 
           <dl className="hidden shrink-0 grid-cols-2 gap-x-10 gap-y-1 border-l border-white/25 pl-6 text-sm md:grid">
-            <dt className="text-white/60">Practising since</dt>
+            <dt className="text-white/60">Years practising</dt>
             <dt className="text-white/60">Open daily</dt>
-            <dd className="display text-2xl">{doctor.practisingSince}</dd>
-            <dd className="display text-2xl">{hours.label.replace(" – ", "–")}</dd>
+            <dd className="display text-3xl">
+              <NumberTicker value={new Date().getFullYear() - doctor.practisingSince} suffix="+" />
+            </dd>
+            <dd className="display text-3xl">{hours.label.replace(" – ", "–")}</dd>
           </dl>
         </motion.div>
       </motion.div>

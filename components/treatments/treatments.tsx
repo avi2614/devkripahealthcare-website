@@ -9,6 +9,8 @@ import { ArrowRight, Plus } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { requestBooking } from "@/lib/booking-events";
 import { consultationFor, treatmentGroups, treatmentHref, treatments, type TreatmentGroup } from "@/data/site";
+import { WordsReveal } from "@/components/ui/motion-kit";
+import { ImageCardCarousel } from "@/components/ui/image-card-carousel";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 const groups: TreatmentGroup[] = ["dental", "skin"];
@@ -84,7 +86,9 @@ export function Treatments({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
           <Reveal className="md:col-span-5">
             <p className="eyebrow">Treatments</p>
             <Title id="treatments-title" className="display mt-5 text-5xl md:text-6xl">
-              What we treat
+              <WordsReveal>
+                What we treat
+              </WordsReveal>
             </Title>
           </Reveal>
           <Reveal delay={0.06} className="self-end md:col-span-6 md:col-start-7">
@@ -132,8 +136,22 @@ export function Treatments({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
           id={`${uid}-panel`}
           role="tabpanel"
           aria-labelledby={`${uid}-tab-${group}`}
-          className="mt-12 grid gap-12 lg:grid-cols-12"
+          className="mt-12"
         >
+          <ImageCardCarousel
+            label={`${treatmentGroups[group].label} treatments`}
+            items={list.map((t) => ({
+              id: t.id,
+              href: treatmentHref(t.id),
+              title: t.name,
+              description: t.short,
+              image: t.image,
+              imageAlt: t.imageAlt,
+              tag: treatmentGroups[group].label,
+            }))}
+          />
+
+          <div className="mt-20 grid gap-12 lg:grid-cols-12">
           {/* List */}
           <div className="lg:col-span-7">
             <AnimatePresence mode="wait" initial={false}>
@@ -150,7 +168,7 @@ export function Treatments({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
                     const open = openId === t.id;
                     const panelId = `${uid}-${t.id}`;
                     return (
-                      <li key={t.id} id={`treatment-${t.id}`} className="border-b border-border" onMouseEnter={() => setHoverId(t.id)}>
+                      <li key={t.id} id={`treatment-${t.id}`} className="spotlight border-b border-border" onMouseEnter={() => setHoverId(t.id)}>
                         <h3>
                           <button
                             type="button"
@@ -164,14 +182,14 @@ export function Treatments({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
                               {String(i + 1).padStart(2, "0")}
                             </span>
                             <span>
-                              <span className="display block text-2xl leading-tight transition-transform duration-500 ease-out group-hover:translate-x-1.5 md:text-[2rem]">
+                              <span className="display block text-2xl leading-tight transition-transform duration-500 ease-out group-hover:translate-x-1.5 group-hover:text-primary md:text-[2rem]">
                                 {t.name}
                               </span>
                               <span className="mt-1.5 block text-[0.95rem] text-muted-foreground">{t.short}</span>
                             </span>
                             <span
                               className={`flex h-10 w-10 items-center justify-center rounded-full border border-border transition-all duration-500 group-hover:border-foreground/40 ${
-                                open ? "rotate-45 bg-foreground text-background" : ""
+                                open ? "rotate-45 border-primary bg-primary text-primary-foreground" : ""
                               }`}
                               aria-hidden
                             >
@@ -257,6 +275,7 @@ export function Treatments({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
                 {image.clinic ? "Photographed at the clinic." : "Representative photo."}
               </p>
             </div>
+          </div>
           </div>
         </div>
       </div>

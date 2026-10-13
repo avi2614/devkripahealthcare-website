@@ -37,7 +37,7 @@ function DesktopDropdown({ menu, label, onNavigate }: { menu: NavMenu; label: st
       transition={{ duration: 0.25, ease }}
       className={`absolute top-full z-10 pt-4 ${wide ? "left-1/2 w-[34rem] -translate-x-1/2" : "-left-5 w-72"}`}
     >
-      <div className="rounded-[2px] border border-border bg-background p-5 shadow-[0_24px_48px_-24px_rgba(20,25,22,0.4)]">
+      <div className="rounded-[2px] border border-border bg-background p-5 shadow-[0_24px_48px_-24px_rgba(11,30,70,0.4)]">
         <div className={wide ? "grid grid-cols-2 gap-6" : undefined}>
           {columns.map((c) => (
             <div key={c.group}>
@@ -106,7 +106,7 @@ export function SiteHeader() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 border-b bg-background/95 text-foreground backdrop-blur-md transition-[border-color,box-shadow] duration-500 ${
-        scrolled ? "border-border shadow-[0_8px_24px_-18px_rgba(20,25,22,0.35)]" : "border-transparent"
+        scrolled ? "border-border shadow-[0_8px_24px_-18px_rgba(11,30,70,0.35)]" : "border-transparent"
       }`}
     >
       <div className="container-x flex h-[4.5rem] items-center justify-between gap-3 sm:gap-6">

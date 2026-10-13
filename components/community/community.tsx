@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/ui/reveal";
 import { communityCamp } from "@/data/site";
+import { Tilt, WordsReveal } from "@/components/ui/motion-kit";
 
 /** The clinic's free dental camp at a local school, as a photo mosaic. */
 export function Community() {
@@ -14,7 +15,9 @@ export function Community() {
         <Reveal className="lg:col-span-4">
           <p className="eyebrow">In the community</p>
           <h2 id="community-title" className="display mt-5 text-4xl md:text-5xl">
-            {communityCamp.title}
+            <WordsReveal>
+              {communityCamp.title}
+            </WordsReveal>
           </h2>
           <p className="mt-6 max-w-sm leading-relaxed text-muted-foreground">
             Dr. Jahanvi and the clinic team ran a free dental check-up camp for students at Central Academy — checking
@@ -45,19 +48,21 @@ function Photo({
   className: string;
 }) {
   return (
-    <Reveal className={`relative overflow-hidden rounded-xl bg-muted ${className}`}>
-      <figure className="h-full w-full">
-        <Image
-          src={item.src}
-          alt={item.alt}
-          fill
-          sizes="(min-width: 1024px) 40vw, (min-width: 768px) 60vw, 100vw"
-          className="object-cover transition-transform duration-700 hover:scale-[1.03]"
-        />
-        <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent px-3 pb-2.5 pt-8 text-xs text-white">
-          {item.caption}
-        </figcaption>
-      </figure>
+    <Reveal className={`relative ${className}`}>
+      <Tilt className="h-full w-full" max={5}>
+        <figure className="group relative h-full w-full overflow-hidden rounded-xl bg-muted">
+          <Image
+            src={item.src}
+            alt={item.alt}
+            fill
+            sizes="(min-width: 1024px) 40vw, (min-width: 768px) 60vw, 100vw"
+            className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.07]"
+          />
+          <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/70 to-transparent px-3 pb-2.5 pt-8 text-xs font-medium text-white transition-[padding] duration-500 group-hover:pb-4">
+            {item.caption}
+          </figcaption>
+        </figure>
+      </Tilt>
     </Reveal>
   );
 }
