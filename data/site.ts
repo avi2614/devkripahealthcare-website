@@ -106,7 +106,14 @@ export type Treatment = {
    * Real before/after photos (with patient consent), e.g. "/images/before-after/acne-before.webp".
    * When absent, the treatment page shows an illustrative comparison built from `image`.
    */
-  beforeAfter?: { before: string; after: string };
+  beforeAfter?: {
+    before: string;
+    after: string;
+    beforeLabel?: string;
+    afterLabel?: string;
+    /** Set for openly licensed photos of people who are not clinic patients; omit for the clinic's own consented photos. */
+    credit?: { author: string; license: string; licenseUrl: string; source: string; sourceName: string };
+  };
 };
 
 export const treatmentGroups: Record<
@@ -173,6 +180,13 @@ export const treatments: Treatment[] = [
   },
   {
     id: "orthodontics",
+    beforeAfter: {
+      before: "/images/before-after/photos/orthodontics-before.webp",
+      after: "/images/before-after/photos/orthodontics-after.webp",
+      beforeLabel: "Crooked, crowded teeth",
+      afterLabel: "After orthodontic treatment",
+      credit: { author: "Jeffrey Dorfman", license: "CC BY-SA 3.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/", source: "https://commons.wikimedia.org/wiki/File:Before_and_After_Photos_following_Orthodontic_Treatment_-_Teeth_Braces.jpg", sourceName: "Wikimedia Commons" },
+    },
     group: "dental",
     name: "Braces & clear aligners",
     short: "Straightening teeth and correcting the bite.",
@@ -208,6 +222,13 @@ export const treatments: Treatment[] = [
   },
   {
     id: "veneers-bridges",
+    beforeAfter: {
+      before: "/images/before-after/photos/veneers-bridges-before.webp",
+      after: "/images/before-after/photos/veneers-bridges-after.webp",
+      beforeLabel: "Worn, discoloured front teeth",
+      afterLabel: "After veneers",
+      credit: { author: "Yvul", license: "CC BY-SA 4.0", licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/", source: "https://commons.wikimedia.org/wiki/File:Faccette_estetiche_confronto_prima_e_dopo.jpg", sourceName: "Wikimedia Commons" },
+    },
     group: "dental",
     name: "Veneers, crowns & bridges",
     short: "Restoring the look and function of damaged or missing teeth.",
@@ -243,6 +264,13 @@ export const treatments: Treatment[] = [
   },
   {
     id: "cleaning-whitening",
+    beforeAfter: {
+      before: "/images/before-after/photos/cleaning-whitening-before.webp",
+      after: "/images/before-after/photos/cleaning-whitening-after.webp",
+      beforeLabel: "Heavy tartar build-up",
+      afterLabel: "Tartar removed",
+      credit: { author: "Bugmore", license: "Public domain", licenseUrl: "https://commons.wikimedia.org/wiki/File:Periogen_Tartar_Dissolution_Study,_day_0.jpg", source: "https://commons.wikimedia.org/wiki/File:Periogen_Tartar_Dissolution_Study,_day_90.jpg", sourceName: "Wikimedia Commons" },
+    },
     group: "dental",
     name: "Scaling, polishing & whitening",
     short: "Professional cleaning and teeth whitening.",
@@ -263,6 +291,13 @@ export const treatments: Treatment[] = [
   // ——— Skin & hair ———
   {
     id: "acne",
+    beforeAfter: {
+      before: "/images/before-after/photos/acne-before.webp",
+      after: "/images/before-after/photos/acne-after.webp",
+      beforeLabel: "Active acne breakouts",
+      afterLabel: "Clearer skin",
+      credit: { author: "kylieaquino01", license: "Public Domain Mark 1.0", licenseUrl: "https://creativecommons.org/publicdomain/mark/1.0/", source: "https://www.flickr.com/photos/149720488@N03/34183392056", sourceName: "Flickr" },
+    },
     group: "skin",
     name: "Acne & acne scars",
     short: "Treating active breakouts and the marks they leave.",

@@ -183,16 +183,27 @@ export function TreatmentPage({ group, slug }: { group: TreatmentGroup; slug: st
             {ba && (
               <BeforeAfter
                 label={t.name}
-                beforeLabel={art?.beforeLabel}
-                afterLabel={art?.afterLabel}
+                beforeLabel={t.beforeAfter?.beforeLabel ?? art?.beforeLabel}
+                afterLabel={t.beforeAfter?.afterLabel ?? art?.afterLabel}
                 before={<Image src={ba.before} alt={`${t.name} — before: ${art?.beforeLabel ?? "before treatment"}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
                 after={<Image src={ba.after} alt={`${t.name} — after: ${art?.afterLabel ?? "after treatment"}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
               />
             )}
-            <p className="mt-4 text-xs text-muted-foreground">
-              {t.beforeAfter
-                ? "Clinic patient, shared with consent. Individual results vary."
-                : "Illustration of the condition and the intended outcome — not a patient photo. Individual results vary."}
+            <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+              {t.beforeAfter?.credit ? (
+                <>
+                  Real patient photos shown for illustration — not a Devkripa patient. Photo:{" "}
+                  <a href={t.beforeAfter.credit.source} className="underline" target="_blank" rel="noopener noreferrer">
+                    {t.beforeAfter.credit.author}
+                  </a>
+                  , <a href={t.beforeAfter.credit.licenseUrl} className="underline" target="_blank" rel="noopener noreferrer">{t.beforeAfter.credit.license}</a>,
+                  via {t.beforeAfter.credit.sourceName} (cropped). Individual results vary.
+                </>
+              ) : t.beforeAfter ? (
+                "Clinic patient, shared with consent. Individual results vary."
+              ) : (
+                "Illustration of the condition and the intended outcome — not a patient photo. Individual results vary."
+              )}
             </p>
           </Reveal>
         </div>

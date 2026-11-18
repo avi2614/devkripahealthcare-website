@@ -39,5 +39,16 @@ made for this site, generated from `data/before-after-art.ts`. They illustrate t
 they are not patient photographs and are captioned as such on the site. To replace one with a real, consented clinic
 photo, set `beforeAfter` on that treatment in `data/site.ts`.
 
+## Treatment before/after — real patient photos (openly licensed, cropped to 4:3)
+Shown as "real patient photos for illustration — not a Devkripa patient", with credit on the page.
+| File (`public/images/before-after/photos/`) | Author | Licence | Source |
+|---|---|---|---|
+| orthodontics-before/after.webp | Jeffrey Dorfman | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Before_and_After_Photos_following_Orthodontic_Treatment_-_Teeth_Braces.jpg |
+| veneers-bridges-before/after.webp | Yvul | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Faccette_estetiche_confronto_prima_e_dopo.jpg |
+| cleaning-whitening-before/after.webp | Bugmore | Public domain | https://commons.wikimedia.org/wiki/File:Periogen_Tartar_Dissolution_Study,_day_0.jpg and _day_90.jpg |
+| acne-before/after.webp | kylieaquino01 | Public Domain Mark 1.0 | https://www.flickr.com/photos/149720488@N03/34183392056 |
+
+The cropped CC BY-SA images are shared under the same licence.
+
 ## Studio credit
 `public/brand/clio-logo*.png` — Clio logo supplied by the client, background removed.
