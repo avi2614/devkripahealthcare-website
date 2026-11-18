@@ -11,8 +11,21 @@ export type BeforeAfterArt = { before: string; after: string; beforeLabel: strin
 
 type Area = { x: number; y: number; w: number; h: number };
 
+const DEFS =
+  `<defs>` +
+  `<linearGradient id="toothSides" x1="0" x2="1"><stop offset="0" stop-color="#5a3a1a" stop-opacity="0.2"/><stop offset="0.28" stop-color="#5a3a1a" stop-opacity="0"/><stop offset="0.72" stop-color="#5a3a1a" stop-opacity="0"/><stop offset="1" stop-color="#5a3a1a" stop-opacity="0.24"/></linearGradient>` +
+  `<linearGradient id="toothLength" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a2a" stop-opacity="0.16"/><stop offset="0.4" stop-color="#ffffff" stop-opacity="0"/><stop offset="0.85" stop-color="#ffffff" stop-opacity="0.18"/><stop offset="1" stop-color="#c9d8ff" stop-opacity="0.25"/></linearGradient>` +
+  `<linearGradient id="gumShade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b1d2b" stop-opacity="0.25"/><stop offset="1" stop-color="#ffffff" stop-opacity="0.12"/></linearGradient>` +
+  `<radialGradient id="faceShade" cx="0.5" cy="0.4" r="0.62"><stop offset="0.5" stop-color="#7a3f20" stop-opacity="0"/><stop offset="1" stop-color="#7a3f20" stop-opacity="0.32"/></radialGradient>` +
+  `<radialGradient id="cheekWarm" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#e88c7a" stop-opacity="0.32"/><stop offset="1" stop-color="#e88c7a" stop-opacity="0"/></radialGradient>` +
+  `<linearGradient id="hairShine" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0"/><stop offset="0.45" stop-color="#ffffff" stop-opacity="0.16"/><stop offset="0.6" stop-color="#ffffff" stop-opacity="0"/></linearGradient>` +
+  `<linearGradient id="lightSweep" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/><stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/></linearGradient>` +
+  `<radialGradient id="vignette" cx="0.5" cy="0.5" r="0.78"><stop offset="0.6" stop-color="#0b1324" stop-opacity="0"/><stop offset="1" stop-color="#0b1324" stop-opacity="0.22"/></radialGradient>` +
+  `<radialGradient id="bone" cx="0.5" cy="0" r="1"><stop offset="0" stop-color="#f6e6cb"/><stop offset="1" stop-color="#e6c9a0"/></radialGradient>` +
+  `</defs>`;
+
 const svg = (body: string, bg = "#eaf1fb") =>
-  `<svg viewBox="0 0 400 300" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="display:block"><rect width="400" height="300" fill="${bg}"/>${body}</svg>`;
+  `<svg viewBox="0 0 400 300" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" style="display:block">${DEFS}<rect width="400" height="300" fill="${bg}"/><rect width="400" height="300" fill="url(#lightSweep)"/>${body}<rect width="400" height="300" fill="url(#vignette)"/></svg>`;
 
 /** Deterministic pseudo-random numbers, so server and client render identical markup. */
 function rng(seed: number) {
@@ -76,16 +89,19 @@ function mouthScene(
   for (let i = 0; i < 7; i++) {
     const x = 68 + i * 38;
     const rot = o.lowerRot?.[i] ?? 0;
-    s += `<path d="${lowerToothPath(x, 240, 36, 52)}" fill="${lf}" stroke="#cfc8b8" stroke-width="1.2" transform="rotate(${rot} ${x + 18} 214)"/>`;
+    const ld = lowerToothPath(x, 240, 36, 52);
+    s += `<g transform="rotate(${rot} ${x + 18} 214)"><path d="${ld}" fill="${lf}" stroke="#cfc8b8" stroke-width="1.2"/><path d="${ld}" fill="url(#toothSides)"/></g>`;
     if (o.tartar) s += `<path d="M${x + 2} 240h32v-7q-16 -6 -32 0z" fill="#9b7a45" opacity="0.85"/>`;
   }
-  s += `<rect x="0" y="0" width="400" height="${top + 8}" fill="${gum}"/>`;
+  s += `<rect x="0" y="236" width="400" height="64" fill="url(#gumShade)" transform="rotate(180 200 268)"/>`;
+  s += `<rect x="0" y="0" width="400" height="${top + 8}" fill="${gum}"/><rect x="0" y="0" width="400" height="${top + 8}" fill="url(#gumShade)"/>`;
   for (const t of teeth) {
     if (t.hidden) continue;
     const cx = t.x + t.w / 2;
     const y = top + t.dy;
     s += `<g transform="rotate(${t.rot} ${cx} ${y + t.h / 2})">`;
-    s += `<path d="${toothPath(t.x, y, t.w, t.h)}" fill="${t.fill}" stroke="#cfc8b8" stroke-width="1.5"/>`;
+    const d = toothPath(t.x, y, t.w, t.h);
+    s += `<path d="${d}" fill="${t.fill}" stroke="#cfc8b8" stroke-width="1.5"/><path d="${d}" fill="url(#toothLength)"/><path d="${d}" fill="url(#toothSides)"/>`;
     if (t.stain) s += `<ellipse cx="${cx}" cy="${f(y + t.h * 0.55)}" rx="${f(t.w * 0.28)}" ry="${f(t.h * 0.18)}" fill="#8d6431" opacity="0.6"/>`;
     if (t.chip) s += `<path d="M${f(t.x + t.w * 0.45)} ${y + t.h + 3}L${t.x + t.w + 3} ${f(y + t.h * 0.6)}L${t.x + t.w + 3} ${y + t.h + 3}Z" fill="${MOUTH}"/>`;
     if (o.tartar) s += `<path d="M${t.x} ${y + 4}h${t.w}v10q${f(-t.w / 2)} 8 ${-t.w} 0z" fill="#9b7a45" opacity="0.85"/>`;
@@ -112,15 +128,16 @@ const CROWN =
   "M150,138 L150,110 C150,80 165,72 178,80 C188,86 192,86 200,80 C208,86 212,86 222,80 C235,72 250,80 250,110 L250,138 Q200,150 150,138 Z";
 
 const molar = (dx: number, fill = WHITE_TOOTH, pulp = "#eaa3a3") =>
-  `<g transform="translate(${dx} 0)"><path d="${MOLAR}" fill="${fill}" stroke="#bfb6a3" stroke-width="2"/><path d="${PULP}" fill="${pulp}"/></g>`;
+  `<g transform="translate(${dx} 0)"><path d="${MOLAR}" fill="${fill}" stroke="#bfb6a3" stroke-width="2"/><path d="${MOLAR}" fill="url(#toothSides)"/><path d="${PULP}" fill="${pulp}"/><path d="${PULP}" fill="url(#toothSides)"/></g>`;
 const neighbours = molar(-178) + molar(178);
 
 function jaw(body: string, o: { dip?: boolean; seed?: number } = {}) {
-  let s = `<rect x="0" y="150" width="400" height="150" fill="#f1dcbc"/>`;
+  let s = `<rect x="0" y="150" width="400" height="150" fill="url(#bone)"/>`;
   s += scatter(o.seed ?? 7, 70, [{ x: 0, y: 168, w: 400, h: 130 }], (x, y, r) => `<circle cx="${f(x)}" cy="${f(y)}" r="${f(2 + r * 4)}" fill="#e3c79f"/>`);
   s += o.dip
     ? `<path d="M0 128H118C158 128 166 160 200 160C234 160 242 128 282 128H400V172H0Z" fill="${GUM}"/>`
     : `<rect x="0" y="128" width="400" height="44" fill="${GUM}"/>`;
+  s += `<rect x="0" y="128" width="400" height="44" fill="url(#gumShade)" opacity="0.6"/>`;
   return svg(s + body, "#eaf1fb");
 }
 
@@ -149,12 +166,17 @@ function faceScene(o: { skin?: string; hair?: string; overlay?: string; defs?: s
   s += `<path d="M84 300C96 254 150 244 200 244C250 244 304 254 316 300Z" fill="#5f7fb5"/>`;
   s += `<rect x="172" y="222" width="56" height="40" fill="${skin}"/>`;
   s += `<ellipse cx="109" cy="160" rx="12" ry="20" fill="${skin}"/><ellipse cx="291" cy="160" rx="12" ry="20" fill="${skin}"/>`;
-  s += `<ellipse cx="200" cy="155" rx="92" ry="112" fill="${skin}"/>`;
+  s += `<ellipse cx="200" cy="232" rx="34" ry="10" fill="#7a3f20" opacity="0.22"/>`;
+  s += `<ellipse cx="200" cy="155" rx="92" ry="112" fill="${skin}"/><ellipse cx="200" cy="155" rx="92" ry="112" fill="url(#faceShade)"/>`;
+  s += `<ellipse cx="152" cy="190" rx="26" ry="16" fill="url(#cheekWarm)"/><ellipse cx="248" cy="190" rx="26" ry="16" fill="url(#cheekWarm)"/>`;
   s += o.hair ?? HAIR_FULL;
+  s += `<path d="M106 150C96 70 150 32 200 32C252 32 306 70 294 150Z" fill="url(#hairShine)" opacity="${o.hair ? 0.4 : 1}"/>`;
   s += `<path d="M148 130Q164 121 181 128M219 128Q236 121 252 130" stroke="#6b4a35" stroke-width="4" fill="none" stroke-linecap="round"/>`;
   s += `<path d="M152 149Q165 157 178 149M222 149Q235 157 248 149" stroke="#4a3426" stroke-width="3" fill="none" stroke-linecap="round"/>`;
   s += `<path d="M200 152Q197 178 190 188Q200 195 210 188" stroke="#c98f6b" stroke-width="3" fill="none" stroke-linecap="round"/>`;
-  s += `<path d="M178 214Q200 229 222 214" stroke="#b5564f" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+  s += `<path d="M176 213Q188 207 200 211Q212 207 224 213Q212 218 200 217Q188 218 176 213Z" fill="#c4625a"/>`;
+  s += `<path d="M176 213Q200 219 224 213Q214 229 200 229Q186 229 176 213Z" fill="#d9786d"/>`;
+  s += `<path d="M190 222Q200 225 210 222" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2" fill="none" stroke-linecap="round"/>`;
   s += o.overlay ?? "";
   return svg(s);
 }

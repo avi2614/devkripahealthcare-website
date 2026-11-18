@@ -55,6 +55,10 @@ export function TreatmentPage({ group, slug }: { group: TreatmentGroup; slug: st
   const g = treatmentGroups[group];
   const about = treatmentAbout[t.id] ?? [];
   const art = beforeAfterArt(t.id);
+  // Real consented photos win; otherwise the treatment's illustration, pre-rendered to public/images/before-after/.
+  const ba =
+    t.beforeAfter ??
+    (art ? { before: `/images/before-after/${t.id}-before.webp`, after: `/images/before-after/${t.id}-after.webp` } : undefined);
   const siblings = treatments.filter((x) => x.group === group && x.id !== t.id);
   const posts = blogPosts.filter((p) => p.treatmentId === t.id || p.body.includes(treatmentHref(t.id))).slice(0, 3);
   const bookHref = `/book?consultation=${consultationFor(t)}&treatment=${t.id}`;
@@ -176,21 +180,15 @@ export function TreatmentPage({ group, slug }: { group: TreatmentGroup; slug: st
             </p>
           </Reveal>
           <Reveal delay={0.06} className="md:col-span-6 md:col-start-7">
-            {t.beforeAfter ? (
+            {ba && (
               <BeforeAfter
                 label={t.name}
-                before={<Image src={t.beforeAfter.before} alt={`${t.name} — before`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
-                after={<Image src={t.beforeAfter.after} alt={`${t.name} — after`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
+                beforeLabel={art?.beforeLabel}
+                afterLabel={art?.afterLabel}
+                before={<Image src={ba.before} alt={`${t.name} — before: ${art?.beforeLabel ?? "before treatment"}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
+                after={<Image src={ba.after} alt={`${t.name} — after: ${art?.afterLabel ?? "after treatment"}`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
               />
-            ) : art ? (
-              <BeforeAfter
-                label={t.name}
-                beforeLabel={art.beforeLabel}
-                afterLabel={art.afterLabel}
-                before={<div className="h-full w-full" dangerouslySetInnerHTML={{ __html: art.before }} />}
-                after={<div className="h-full w-full" dangerouslySetInnerHTML={{ __html: art.after }} />}
-              />
-            ) : null}
+            )}
             <p className="mt-4 text-xs text-muted-foreground">
               {t.beforeAfter
                 ? "Clinic patient, shared with consent. Individual results vary."

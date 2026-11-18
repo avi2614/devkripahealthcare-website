@@ -33,5 +33,11 @@ and `hero-clinic-mobile.mp4` (portrait crop, 720×1280), with WebP posters.
 
 Stock images are labelled "Representative photo" on the site; clinic photos are labelled "Photographed at the clinic".
 
+## Treatment before/after images — original illustrations
+`public/images/before-after/<treatment>-before.webp` / `-after.webp` (16 treatments, 1200×900) are original drawings
+made for this site, generated from `data/before-after-art.ts`. They illustrate the condition and the intended outcome;
+they are not patient photographs and are captioned as such on the site. To replace one with a real, consented clinic
+photo, set `beforeAfter` on that treatment in `data/site.ts`.
+
 ## Studio credit
 `public/brand/clio-logo*.png` — Clio logo supplied by the client, background removed.
