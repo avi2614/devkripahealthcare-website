@@ -7,6 +7,8 @@ import { SiteShell } from "@/components/layout/site-shell";
 import { PostCard } from "@/components/blog/post-card";
 import { Reveal } from "@/components/ui/reveal";
 import { AlwaysPlayingVideo } from "@/components/ui/always-playing-video";
+import { BeforeAfter } from "@/components/ui/before-after";
+import { beforeAfterArt } from "@/data/before-after-art";
 import { blogPosts } from "@/data/blog";
 import { treatmentAbout } from "@/data/treatment-about";
 import {
@@ -52,6 +54,7 @@ export function TreatmentPage({ group, slug }: { group: TreatmentGroup; slug: st
 
   const g = treatmentGroups[group];
   const about = treatmentAbout[t.id] ?? [];
+  const art = beforeAfterArt(t.id);
   const siblings = treatments.filter((x) => x.group === group && x.id !== t.id);
   const posts = blogPosts.filter((p) => p.treatmentId === t.id || p.body.includes(treatmentHref(t.id))).slice(0, 3);
   const bookHref = `/book?consultation=${consultationFor(t)}&treatment=${t.id}`;
@@ -159,6 +162,43 @@ export function TreatmentPage({ group, slug }: { group: TreatmentGroup; slug: st
           </div>
         </section>
       )}
+
+      <section aria-labelledby="before-after-title" className="border-t border-border py-20 md:py-28">
+        <div className="container-x grid items-center gap-10 md:grid-cols-12">
+          <Reveal className="md:col-span-5">
+            <p className="eyebrow">Before &amp; after</p>
+            <h2 id="before-after-title" className="display mt-5 text-4xl md:text-5xl">
+              See the difference
+            </h2>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-muted-foreground">
+              Drag the handle to compare. Every patient is different, so Dr. Jahanvi will talk you through
+              realistic results for {t.name.toLowerCase()} at your consultation.
+            </p>
+          </Reveal>
+          <Reveal delay={0.06} className="md:col-span-6 md:col-start-7">
+            {t.beforeAfter ? (
+              <BeforeAfter
+                label={t.name}
+                before={<Image src={t.beforeAfter.before} alt={`${t.name} — before`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
+                after={<Image src={t.beforeAfter.after} alt={`${t.name} — after`} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />}
+              />
+            ) : art ? (
+              <BeforeAfter
+                label={t.name}
+                beforeLabel={art.beforeLabel}
+                afterLabel={art.afterLabel}
+                before={<div className="h-full w-full" dangerouslySetInnerHTML={{ __html: art.before }} />}
+                after={<div className="h-full w-full" dangerouslySetInnerHTML={{ __html: art.after }} />}
+              />
+            ) : null}
+            <p className="mt-4 text-xs text-muted-foreground">
+              {t.beforeAfter
+                ? "Clinic patient, shared with consent. Individual results vary."
+                : "Illustration of the condition and the intended outcome — not a patient photo. Individual results vary."}
+            </p>
+          </Reveal>
+        </div>
+      </section>
 
       <section aria-labelledby="concerns-title" className="bg-secondary/55 py-20 md:py-28">
         <div className="container-x grid gap-12 md:grid-cols-12">

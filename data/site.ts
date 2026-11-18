@@ -102,6 +102,11 @@ export type Treatment = {
   clinicPhoto: boolean;
   /** Optional clip filmed at the clinic, shown on the treatment page. */
   video?: { src: string; poster: string; title: string; caption: string };
+  /**
+   * Real before/after photos (with patient consent), e.g. "/images/before-after/acne-before.webp".
+   * When absent, the treatment page shows an illustrative comparison built from `image`.
+   */
+  beforeAfter?: { before: string; after: string };
 };
 
 export const treatmentGroups: Record<
