@@ -5,7 +5,7 @@ import { Intro } from "@/components/intro/intro";
 
 export const metadata: Metadata = {
   title: "Inside the clinic — photos of Devkripa Healthcare",
-  description: "Photographs of Devkripa Healthcare on Khirni Phatak Road, Jhotwara: reception, dental operatory, skin & laser room and the team.",
+  description: "Photographs of Devkripa Healthcare on Sangh Shakti Road, Ashok Vihar Vistar, Jhotwara: reception, dental operatory, skin & laser room and the team.",
   alternates: { canonical: "/clinic" },
 };
 

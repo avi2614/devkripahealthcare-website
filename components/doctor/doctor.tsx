@@ -6,9 +6,13 @@ import { Float, Magnetic, Parallax, WordsReveal } from "@/components/ui/motion-k
 import { BrandMark } from "@/components/ui/brand-mark";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/icons";
 import { contact, doctor } from "@/data/site";
+import { aboutDoctor, altText } from "@/data/home-seo";
+import { Rich } from "@/components/ui/rich";
 
 export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
   const Title = titleAs;
+  /** On the homepage (h2) the section uses the SEO brief's question heading and paragraph; /doctor keeps the full bio. */
+  const home = titleAs === "h2";
   return (
     <section id="doctor" aria-labelledby="doctor-title" className="overflow-hidden bg-secondary/55 py-24 md:py-36">
       <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-10">
@@ -31,8 +35,8 @@ export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
             <Reveal delay={0.5} className="flex items-center gap-3 rounded-2xl border border-white/60 bg-white/80 px-4 py-3 shadow-[0_18px_40px_-20px_rgba(11,30,70,0.5)] backdrop-blur-md">
               <BrandMark className="h-8 w-8" />
               <span className="leading-tight">
-                <span className="display block text-2xl">{new Date().getFullYear() - doctor.practisingSince}+ years</span>
-                <span className="text-xs text-muted-foreground">practising since {doctor.practisingSince}</span>
+                <span className="display block text-2xl">Since {doctor.practisingSince}</span>
+                <span className="text-xs text-muted-foreground">practising dentistry</span>
               </span>
             </Reveal>
           </Float>
@@ -43,7 +47,7 @@ export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
             <Parallax offset={-28} className="relative aspect-[4/5] overflow-hidden rounded-xl border-[6px] border-white bg-muted shadow-[0_20px_40px_-20px_rgba(11,30,70,0.45)]">
               <Image
                 src="/images/doctor-portrait.webp"
-                alt="Portrait of Dr. Jahanvi Tyagi"
+                alt={altText.doctorPortrait}
                 fill
                 sizes="220px"
                 className="object-cover object-top"
@@ -54,19 +58,36 @@ export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
 
         {/* Text */}
         <div className="lg:col-span-5 lg:col-start-8">
-          <Reveal>
-            <p className="eyebrow">Meet the doctor</p>
-            <Title id="doctor-title" className="display mt-5 text-5xl md:text-6xl">
-              <WordsReveal>{doctor.name}</WordsReveal>
-            </Title>
-            <p className="mt-3 text-lg text-muted-foreground">{doctor.title}</p>
-          </Reveal>
+          {home ? (
+            <Reveal>
+              <p className="eyebrow">Meet the doctor</p>
+              <Title id="doctor-title" className="display mt-5 text-4xl leading-[1.1] md:text-5xl">
+                <WordsReveal>{aboutDoctor.h2}</WordsReveal>
+              </Title>
+              <p className="mt-8 text-[1.05rem] leading-[1.75] text-foreground/85">
+                <Rich text={aboutDoctor.body} />
+              </p>
+              <p className="mt-5 text-sm text-muted-foreground">
+                {doctor.name} · {doctor.title}
+              </p>
+            </Reveal>
+          ) : (
+            <>
+              <Reveal>
+                <p className="eyebrow">Meet the doctor</p>
+                <Title id="doctor-title" className="display mt-5 text-5xl md:text-6xl">
+                  <WordsReveal>{doctor.name}</WordsReveal>
+                </Title>
+                <p className="mt-3 text-lg text-muted-foreground">{doctor.title}</p>
+              </Reveal>
 
-          <Reveal delay={0.08} className="mt-10 space-y-5 text-[1.05rem] leading-[1.75] text-foreground/85">
-            {doctor.about.map((para) => (
-              <p key={para.slice(0, 24)}>{para}</p>
-            ))}
-          </Reveal>
+              <Reveal delay={0.08} className="mt-10 space-y-5 text-[1.05rem] leading-[1.75] text-foreground/85">
+                {doctor.about.map((para) => (
+                  <p key={para.slice(0, 24)}>{para}</p>
+                ))}
+              </Reveal>
+            </>
+          )}
 
           <Reveal delay={0.12} className="mt-12 grid gap-8 border-t border-border pt-10 sm:grid-cols-2">
             <div>
@@ -106,6 +127,11 @@ export function Doctor({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
                 Book with Dr. Jahanvi <ArrowRight className="h-4 w-4" aria-hidden />
               </Link>
             </Magnetic>
+            {home && (
+              <Link href="/doctor" className="link-underline text-sm font-semibold text-primary">
+                Read Dr. Jahanvi&rsquo;s full profile
+              </Link>
+            )}
             <div className="flex items-center gap-1">
               <a
                 href={contact.social.instagram}

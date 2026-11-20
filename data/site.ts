@@ -6,12 +6,12 @@
  */
 
 export const site = {
-  url: "https://devkripahealthcare.com",
+  url: "https://www.devkripahealthcare.com",
   name: "Devkripa Healthcare",
   clinicName: "Dr. Jahanvi's Dermadent",
   tagline: "Dental, skin & hair care in Jhotwara, Jaipur",
   description:
-    "Devkripa Healthcare is the dental and cosmetic clinic of Dr. Jahanvi Tyagi — dental surgeon and clinical cosmetologist — in Jhotwara, Jaipur. Open every day, 10:30 AM to 8:00 PM.",
+    "Dental & skin clinic in Ashok Vihar, Jhotwara, Jaipur. Root canal, implants, braces, acne, pigmentation, laser & hair PRP with Dr. Jahanvi Tyagi. Open daily.",
 };
 
 export const doctor = {
@@ -22,7 +22,7 @@ export const doctor = {
   practisingSince: 2008,
   /** Biography as supplied by the clinic. */
   about: [
-    "Dr. Jahanvi boasts over 15 years of esteemed expertise as a distinguished dentist and cosmetologist, graduating from the prestigious Government Dental College Nagpur, affiliated with MUHS Nashik. Her unparalleled proficiency encompasses a diverse spectrum of dental services, including but not limited to smile enhancement, tooth restoration via capping, root canal therapy, correction of malocclusion, and precise placement of implants, effectively addressing a comprehensive array of oral health concerns.",
+    "Dr. Jahanvi has been practising as a dentist and cosmetologist since 2008, after graduating from the prestigious Government Dental College Nagpur, affiliated with MUHS Nashik. Her unparalleled proficiency encompasses a diverse spectrum of dental services, including but not limited to smile enhancement, tooth restoration via capping, root canal therapy, correction of malocclusion, and precise placement of implants, effectively addressing a comprehensive array of oral health concerns.",
     "Beyond her exceptional dental specialization, Dr. Jahanvi has pursued rigorous further training, culminating in a fellowship in facial aesthetic medicine from Mumbai. Her unwavering commitment extends to dermatological matters, where she adeptly addresses concerns such as melasma, pigmentation irregularities, acne scarring, uneven skin tone, wrinkles, and signs of aging. Dr. Jahanvi offers an expansive repertoire of advanced facial treatments, including HydraFacial, carbon facial, PRP facial, alongside cutting-edge services like laser hair removal and tattoo removal.",
     "Moreover, she seamlessly integrates her expertise to provide comprehensive solutions for hair-related issues, offering tailored interventions for hair fall problems, PRP therapy, and hair transplants. Dr. Jahanvi is dedicated to delivering holistic care, ensuring her patients receive the highest standard of treatment for both their dental and aesthetic needs.",
   ],
@@ -54,9 +54,9 @@ export const contact = {
   whatsappNumber: "918209011472",
   email: "dev.kripahealthcare@gmail.com",
   address: {
-    line1: "H.No. 175, Ashok Vihar Vistar",
-    line2: "Near Mini Market, Khirni Phatak Road",
-    line3: "Gokulpura, Jhotwara",
+    line1: "174/175, Sangh Shakti Rd",
+    line2: "opposite Tatkaleshwar Mahadev Mandir",
+    line3: "Ashok Vihar Vistar, Jhotwara",
     city: "Jaipur",
     region: "Rajasthan",
     postalCode: "302012",
@@ -125,18 +125,18 @@ export const treatmentGroups: Record<
     path: "/dental-care",
     title: "Dental treatments in Jhotwara, Jaipur",
     intro:
-      "Everyday dentistry and restorative work — from cleaning and root canals to implants, braces and smile correction.",
+      "Everyday dentistry and restorative work, from cleaning and root canals to implants, braces and smile correction, all by one doctor.",
     image: "/images/doctor-treating-3.webp",
     imageAlt: "Dr. Jahanvi Tyagi treating a patient in the dental chair at the clinic",
   },
   skin: {
     label: "Skin & hair",
     path: "/skin-care",
-    title: "Skin & hair treatments in Jhotwara, Jaipur",
+    title: "Skin and hair treatments in Jaipur",
     intro:
-      "Treatments for acne, pigmentation, texture and hair fall, backed by Dr. Jahanvi's fellowship in facial aesthetic medicine.",
+      "Skin and hair concerns are assessed first, then a treatment plan is explained so you can choose with confidence.",
     image: "/images/skin-laser-room.webp",
-    imageAlt: "The skin and laser treatment room at Devkripa Healthcare",
+    imageAlt: "Skin and laser treatment room at Devkripa Healthcare, Jhotwara, Jaipur",
   },
 };
 
@@ -259,7 +259,7 @@ export const treatments: Treatment[] = [
     detail:
       "An implant replaces the root of a missing tooth and holds a crown on top. Implants can replace one tooth or support a full-mouth restoration.",
     image: "/images/dental-operatory.webp",
-    imageAlt: "The dental operatory at Devkripa Healthcare with a green dental chair",
+    imageAlt: "Dental operatory at Devkripa Healthcare, dental clinic in Jhotwara, Jaipur",
     clinicPhoto: true,
   },
   {
@@ -456,7 +456,7 @@ export const treatments: Treatment[] = [
     detail:
       "Removal of moles, warts and skin tags, and laser tattoo removal, done in the clinic's skin and laser room.",
     image: "/images/skin-laser-room.webp",
-    imageAlt: "The skin and laser treatment room at the clinic",
+    imageAlt: "Skin and laser treatment room at Devkripa Healthcare, Jhotwara, Jaipur",
     clinicPhoto: true,
   },
 ];
@@ -531,15 +531,15 @@ export const videoReviews: VideoReview[] = [
 export type GalleryItem ={ src: string; alt: string; caption: string; w: number; h: number };
 
 export const gallery: GalleryItem[] = [
-  { src: "/images/reception.webp", alt: "Clinic reception with the Devkripa Healthcare desk and waiting chairs", caption: "Reception", w: 1280, h: 960 },
+  { src: "/images/reception.webp", alt: "Reception at Devkripa Healthcare dental and skin clinic, Jhotwara", caption: "Reception", w: 1280, h: 960 },
   { src: "/images/doctor-treating-3.webp", alt: "Dr. Jahanvi Tyagi treating a patient in the dental chair", caption: "In the dental chair", w: 1200, h: 1600 },
-  { src: "/images/dental-operatory.webp", alt: "Dental operatory with a green dental chair and cabinets", caption: "Dental operatory", w: 1280, h: 1039 },
+  { src: "/images/dental-operatory.webp", alt: "Dental operatory at Devkripa Healthcare, dental clinic in Jhotwara, Jaipur", caption: "Dental operatory", w: 1280, h: 1039 },
   { src: "/images/doctor-child-patient.webp", alt: "Dr. Jahanvi Tyagi with a young patient smiling in the dental chair", caption: "A young patient", w: 1200, h: 1600 },
-  { src: "/images/skin-laser-room.webp", alt: "Skin and laser room with a treatment bed and laser machine", caption: "Skin & laser room", w: 1280, h: 960 },
+  { src: "/images/skin-laser-room.webp", alt: "Skin and laser treatment room at Devkripa Healthcare, Jhotwara, Jaipur", caption: "Skin & laser room", w: 1280, h: 960 },
   { src: "/images/consultation-room.webp", alt: "Consultation room with wood-panelled wall and desk", caption: "Consultation room", w: 1280, h: 960 },
   { src: "/images/doctor-treating-4.webp", alt: "Dr. Jahanvi Tyagi examining a patient", caption: "Examination", w: 1200, h: 1600 },
   { src: "/images/team-reception.webp", alt: "The clinic team standing together in the reception area", caption: "The team", w: 1600, h: 1200 },
-  { src: "/images/building.webp", alt: "The clinic building on Khirni Phatak Road", caption: "The building, Ashok Vihar Vistar", w: 913, h: 1280 },
+  { src: "/images/building.webp", alt: "Devkripa Healthcare clinic building, Ashok Vihar Vistar, Jhotwara, Jaipur", caption: "The building, Ashok Vihar Vistar", w: 913, h: 1280 },
   { src: "/images/exterior-evening.webp", alt: "The clinic entrance and signage in the evening", caption: "Open until 8 PM", w: 1485, h: 1127 },
   { src: "/images/community-camp.webp", alt: "Dr. Jahanvi Tyagi at a community health camp", caption: "Community health camp", w: 780, h: 1040 },
   { src: "/images/team-outdoor.webp", alt: "The clinic team seated outside the clinic", caption: "The team, outside the clinic", w: 1077, h: 842 },
@@ -549,7 +549,7 @@ export const gallery: GalleryItem[] = [
   { src: "/images/community-camp-welcome.webp", alt: "Dr. Jahanvi Tyagi being welcomed with a garland at a community event", caption: "Welcomed at a community camp", w: 1032, h: 581 },
   { src: "/images/doctor-treating-2.webp", alt: "Dr. Jahanvi Tyagi examining a patient's teeth", caption: "Dental examination", w: 1200, h: 1600 },
   { src: "/images/certificate.webp", alt: "Dr. Jahanvi Tyagi receiving a certificate alongside colleagues", caption: "Receiving a certificate", w: 1600, h: 1200 },
-  { src: "/images/camp-dental-checkup.webp", alt: "Dr. Jahanvi Tyagi and a team dentist checking schoolchildren's teeth at a free dental camp", caption: "Free dental camp, Central Academy", w: 1600, h: 900 },
+  { src: "/images/camp-dental-checkup.webp", alt: "Free dental check-up camp for school students by Dr. Jahanvi Tyagi, Jaipur", caption: "Free dental camp, Central Academy", w: 1600, h: 900 },
   { src: "/images/camp-memento.webp", alt: "Dr. Jahanvi Tyagi receiving a memento from the school after the dental camp", caption: "A memento from the school", w: 900, h: 1600 },
   { src: "/images/camp-students-line.webp", alt: "Students lining up for their dental check-up at the camp", caption: "Students waiting for their check-up", w: 1599, h: 900 },
   { src: "/images/camp-screening.webp", alt: "Clinic dentists examining students at the camp tables", caption: "Dental screening at the camp", w: 1600, h: 900 },
@@ -569,40 +569,49 @@ export const communityCamp = {
   },
 };
 
-export const faqs = [
-  {
-    q: "When is the clinic open?",
-    a: "Every day of the week, including Sunday, from 10:30 AM to 8:00 PM.",
-  },
-  {
-    q: "Where is the clinic?",
-    a: "H.No. 175, Ashok Vihar Vistar, near Mini Market, Khirni Phatak Road, Gokulpura, Jhotwara, Jaipur 302012. The “Get directions” link opens the exact location in Google Maps.",
-  },
-  {
-    q: "Can I get dental and skin treatment at the same clinic?",
-    a: "Yes. Devkripa Healthcare has a dental wing and a skin & hair (cosmetic) wing, both headed by Dr. Jahanvi Tyagi.",
-  },
-  {
-    q: "How do I book an appointment?",
-    a: "Send a request using the booking form on this page, call +91 82090 11472, or message the clinic on WhatsApp. The clinic will get back to you to confirm the time.",
-  },
-  {
-    q: "Is my booking confirmed as soon as I submit the form?",
-    a: "No — the form sends a request. Your appointment is confirmed only once the clinic contacts you.",
-  },
-  {
-    q: "Which languages does the doctor speak?",
-    a: "English and Hindi.",
-  },
-  {
-    q: "How can I pay?",
-    a: "The clinic accepts cash and UPI.",
-  },
-  {
-    q: "Is the clinic accessible?",
-    a: "Yes — there is a wheelchair-accessible elevator, and a gender-neutral restroom.",
-  },
+export type FaqGroup = "Location and timings" | "Doctor and booking" | "Dental" | "Skin and hair";
+
+/**
+ * Homepage SEO FAQ (22 questions, from the homepage SEO brief). The FAQPage schema is
+ * generated from this list, so the visible wording and the schema always match.
+ */
+export const faqs: { group: FaqGroup; q: string; a: string }[] = [
+  { group: "Location and timings", q: "Where is the dental clinic in Jhotwara, Jaipur?", a: "Devkripa Healthcare is a dental and skin clinic at 174/175, Sangh Shakti Road, Ashok Vihar Vistar, Jhotwara, Jaipur 302012, led by Dr. Jahanvi Tyagi." },
+  { group: "Location and timings", q: "What are the clinic timings?", a: "The clinic is open all seven days, including Sunday, from 10:30 AM to 8:00 PM." },
+  { group: "Location and timings", q: "Is there a dentist open on Sunday in Jaipur?", a: "Yes. Devkripa Healthcare in Jhotwara is open on Sunday from 10:30 AM to 8:00 PM." },
+  { group: "Location and timings", q: "How do I reach the clinic?", a: "The clinic is on Sangh Shakti Road, opposite Tatkaleshwar Mahadev Mandir, in Ashok Vihar Vistar, Jhotwara." },
+  { group: "Location and timings", q: "Is the clinic wheelchair accessible?", a: "Yes. It has a wheelchair-accessible elevator and a gender-neutral restroom." },
+  { group: "Location and timings", q: "How can I pay?", a: "We accept cash and UPI." },
+  { group: "Doctor and booking", q: "Who is Dr. Jahanvi Tyagi?", a: "Dr. Jahanvi Tyagi is a dental surgeon (BDS, 2008) and clinical cosmetologist with a Fellowship in Facial Aesthetic Medicine (2018). She is registered with the Rajasthan Dental Council (No. A4243)." },
+  { group: "Doctor and booking", q: "Can I get both dental and skin treatment at the same clinic?", a: "Yes. Dr. Jahanvi Tyagi heads both the dental wing and the skin and hair wing." },
+  { group: "Doctor and booking", q: "Which languages does the doctor speak?", a: "English and Hindi." },
+  { group: "Doctor and booking", q: "How do I book an appointment?", a: "Use the online booking form, call +91 82090 11472, or message the clinic on WhatsApp." },
+  { group: "Doctor and booking", q: "Is my booking confirmed immediately?", a: "No. The clinic calls you to confirm your time slot." },
+  { group: "Dental", q: "Is root canal treatment available in Jhotwara?", a: "Yes. Root canal treatment is done at Devkripa Healthcare to save a damaged or infected tooth. A crown is usually advised afterwards." },
+  { group: "Dental", q: "How many visits does a root canal need?", a: "It depends on the tooth and the infection. The doctor explains the plan after examining you." },
+  { group: "Dental", q: "Are dental implants available at this clinic?", a: "Yes. Implants are offered to replace a single missing tooth up to a full arch, after an examination." },
+  { group: "Dental", q: "Dental implant or bridge: which should I choose?", a: "Both replace missing teeth but work differently. The right choice depends on your teeth, gums and jaw bone, so the doctor decides after examination." },
+  { group: "Dental", q: "Does the clinic offer braces and clear aligners?", a: "Yes, for straightening teeth and correcting the bite." },
+  { group: "Dental", q: "Is teeth whitening available?", a: "Yes, along with scaling and polishing." },
+  { group: "Skin and hair", q: "Which clinic treats melasma and pigmentation in Jhotwara?", a: "Dr. Jahanvi Tyagi treats melasma and pigmentation at Devkripa Healthcare using options such as sunscreen guidance, creams, peels and laser toning." },
+  { group: "Skin and hair", q: "Is acne scar treatment available at this clinic?", a: "Yes. Acne, acne scars and related options such as peels and microneedling are offered." },
+  { group: "Skin and hair", q: "Is laser hair removal available?", a: "Yes. Laser hair removal usually needs more than one session." },
+  { group: "Skin and hair", q: "Does the clinic offer hair PRP and hair transplant?", a: "Yes. The right option is advised after a scalp examination." },
+  { group: "Skin and hair", q: "Can I remove moles, warts, skin tags or tattoos here?", a: "Yes. These minor skin procedures are offered at the clinic." },
 ];
+
+export const faqGroups: FaqGroup[] = ["Location and timings", "Doctor and booking", "Dental", "Skin and hair"];
+
+/** FAQPage JSON-LD, built from the visible FAQ list above. */
+export const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
 
 /** Which treatments a nav item's dropdown lists. */
 export type NavMenu = "all" | TreatmentGroup;

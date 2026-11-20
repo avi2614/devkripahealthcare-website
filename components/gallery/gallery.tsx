@@ -67,7 +67,7 @@ export function Gallery({ titleAs = "h2", limit, eyebrow = "Inside the clinic", 
           </Reveal>
           <Reveal delay={0.06} className="self-end md:col-span-5 md:col-start-8">
             <p className="text-lg leading-relaxed text-muted-foreground">
-              Photographs from the clinic on Khirni Phatak Road — the rooms you&rsquo;ll be treated in, the people
+              Photographs from the clinic on Sangh Shakti Road — the rooms you&rsquo;ll be treated in, the people
               you&rsquo;ll meet, and the community health camps the team runs.
             </p>
           </Reveal>

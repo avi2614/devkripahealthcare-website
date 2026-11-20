@@ -88,7 +88,7 @@ If you have tooth pain that lingers, swelling, or a tooth that hurts to bite on,
     category: "Dental care",
     date: "2026-10-02",
     image: "/images/dental-operatory.webp",
-    imageAlt: "The dental operatory at Devkripa Healthcare with a green dental chair",
+    imageAlt: "Dental operatory at Devkripa Healthcare, dental clinic in Jhotwara, Jaipur",
     keywords: ["dental implants Jaipur", "implant vs bridge", "missing tooth replacement", "dental bridge Jhotwara"],
     treatmentId: "implants",
     body: `Losing a tooth affects more than your smile. The gap can make chewing harder, neighbouring teeth can slowly tilt into the space, and the bone under a missing tooth gradually shrinks. The two most common fixed options to replace a tooth are a dental implant and a bridge. Both can look natural — the difference lies in how they are supported.

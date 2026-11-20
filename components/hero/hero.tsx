@@ -6,8 +6,9 @@ import Link from "next/link";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { doctor, hours } from "@/data/site";
+import { hero } from "@/data/home-seo";
+import { Rich } from "@/components/ui/rich";
 import { useAlwaysPlay } from "@/components/ui/always-playing-video";
-import { NumberTicker } from "@/components/ui/effects";
 import { Magnetic } from "@/components/ui/motion-kit";
 
 const VIDEO = {
@@ -44,7 +45,9 @@ export function Hero() {
   const mediaY = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "14%"]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, reduce ? 1 : 0]);
 
-  const lines = ["Dental and skin care,", "with a doctor who", "takes time to listen."];
+  // H1 from the SEO brief, split into lines for the reveal. Each line keeps its trailing space so the
+  // heading text reads as one sentence: "Dentist and Skin Clinic in Jhotwara, Jaipur — Dr. Jahanvi Tyagi".
+  const lines = ["Dentist and Skin Clinic ", "in Jhotwara, Jaipur ", "— Dr. Jahanvi Tyagi"];
 
   return (
     <section ref={ref} id="top" className="relative min-h-[100svh] overflow-hidden bg-ink text-white">
@@ -52,7 +55,7 @@ export function Hero() {
       <motion.div style={{ y: mediaY }} className="grain absolute inset-0">
         {/* Poster (and fallback) sits underneath; the video fades in over it once it plays. */}
         {posterFailed ? (
-          <Image src={FALLBACK} alt="" fill priority sizes="100vw" className="object-cover" />
+          <Image src={FALLBACK} alt="Reception at Devkripa Healthcare dental and skin clinic, Jhotwara" fill priority sizes="100vw" className="object-cover" />
         ) : (
           <picture>
             <source media="(max-width: 767px)" srcSet={VIDEO.mobile.poster} />
@@ -98,7 +101,7 @@ export function Hero() {
           Dr. Jahanvi&rsquo;s Dermadent · Jhotwara, Jaipur
         </motion.p>
 
-        <h1 className="display max-w-[17ch] text-[2.3rem] min-[360px]:text-[2.65rem] leading-[1.02] sm:text-6xl md:text-7xl lg:text-[5.4rem]">
+        <h1 className="display max-w-[20ch] text-[2.15rem] min-[360px]:text-[2.45rem] leading-[1.04] sm:text-[3.4rem] md:text-[4rem] lg:text-[4.6rem]">
           {lines.map((line, i) => (
             <span key={line} className="block overflow-hidden pb-[0.08em]">
               <motion.span
@@ -120,10 +123,9 @@ export function Hero() {
           animate={{ y: 0 }}
           transition={{ duration: 1.1, delay: 0.5, ease }}
         >
-          <div className="max-w-xl">
-            <p className="text-base leading-relaxed text-white/85 md:text-lg">
-              {doctor.name} is a dental surgeon with a fellowship in facial aesthetic medicine. Teeth, skin and hair are
-              treated under one roof — open every day of the week.
+          <div className="max-w-2xl">
+            <p className="text-[0.95rem] leading-relaxed text-white/85 md:text-base">
+              <Rich text={hero.intro} strongClassName="font-semibold text-white" />
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Magnetic>
@@ -140,10 +142,10 @@ export function Hero() {
           </div>
 
           <dl className="hidden shrink-0 grid-cols-2 gap-x-10 gap-y-1 border-l border-white/25 pl-6 text-sm md:grid">
-            <dt className="text-white/60">Years practising</dt>
+            <dt className="text-white/60">Practising since</dt>
             <dt className="text-white/60">Open daily</dt>
             <dd className="display text-3xl">
-              <NumberTicker value={new Date().getFullYear() - doctor.practisingSince} suffix="+" />
+              {doctor.practisingSince}
             </dd>
             <dd className="display text-3xl">{hours.label.replace(" – ", "–")}</dd>
           </dl>

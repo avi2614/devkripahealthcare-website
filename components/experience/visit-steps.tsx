@@ -2,6 +2,8 @@ import Image from "next/image";
 import { ImageReveal, Reveal } from "@/components/ui/reveal";
 import { WordsReveal } from "@/components/ui/motion-kit";
 import { ScrollLine } from "@/components/ui/motion-kit";
+import { Rich } from "@/components/ui/rich";
+import { firstVisit } from "@/data/home-seo";
 
 const steps = [
   {
@@ -37,9 +39,12 @@ export function VisitSteps({ titleAs = "h2" }: { titleAs?: "h1" | "h2" } = {}) {
               <p className="eyebrow !text-ink-foreground/60">Your visit</p>
               <Title id="visit-title" className="display mt-5 text-5xl md:text-6xl">
                 <WordsReveal>
-                  What a first appointment <em className="text-highlight">looks like</em>
+                  What to expect at your <em className="text-highlight">first visit</em>
                 </WordsReveal>
               </Title>
+              <p className="mt-8 max-w-lg text-[1.02rem] leading-[1.75] text-ink-foreground/80">
+                <Rich text={firstVisit.body} strongClassName="font-semibold text-white" />
+              </p>
             </Reveal>
             <div className="mt-12 grid grid-cols-5 gap-3">
               <ImageReveal className="relative col-span-3 aspect-[3/4] overflow-hidden bg-white/5">
